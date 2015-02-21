@@ -7,5 +7,7 @@ def strategy_fitness_at_x(w,i,x):
 def average_fitness_at_x(w,x):
     w_bar = 0
     for i in range(len(x)):
-        w_bar = w_bars+np.dot(x,strategy_fitness_at_x(w,i,x))
+        w_bar = w_bar+np.dot(x,strategy_fitness_at_x(w,i,x))
     return w_bar
+
+
