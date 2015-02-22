@@ -3,13 +3,20 @@ from sympy import *
 
 def strategy_fitness_at_x(w,i,x):
     row = w[i]
-    return np.array([row[j]*x[j] for j in range(row.size)])
+    return np.dot(row,x)
     
+#w is the payoff matrix 
+#x is the state of shares
 def average_fitness_at_x(w,x):
     w_bar = 0
     for i in range(len(x)):
-        w_bar = w_bar+np.dot(x,strategy_fitness_at_x(w,i,x))
+        w_bar = w_bar+np.dot(x[i],strategy_fitness_at_x(w,i,x))
     return w_bar
+
+def get_strategy_abstract(w,i,x):
+    row = w[i]
+    return np.dot(row,x)
+
 
 
 def get_delta_line(w,i,j,k):
