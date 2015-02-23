@@ -13,9 +13,6 @@ def average_fitness_at_x(w,x):
         w_bar = w_bar+np.dot(x[i],strategy_fitness_at_x(w,i,x))
     return w_bar
 
-def get_strategy_abstract(w,i,x):
-    row = w[i]
-    return np.dot(row,x)
 
 
 
