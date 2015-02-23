@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{FinalPaper}
+\author{ }
+\date{February 2015}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+CAN BE PASTED FROM PRE-PROSPECTUS - LEFT OUT BC IT IS DISTRACTING
+
+
+\section{Background}
+POSSIBLY SAME AS INTRO
+
+\section{Why Game Theory?}
+Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time. 
+
+
+THIS IS CHOPPY IE NEEDS EDITING
+
+\section{Defining the Game}
+At the heart of each game is the decision to pay or not to pay. Thus we begin the discussion of our game with a single two dimensional vector including the payoffs of the choices available to each consumer. Next we refine the game by capturing the inter-player dynamics. Next we explain the evolution of norms. We show that the payoffs of stealing are affected by the norms of the community. Furthermore we estimate how these norms change over time. Finally we introduce cellular automata, and show how strategies proliferate spatially. The following sections outline the game construction while parameter estimation is covered after this theoretical construction. \\ 
+\subsection{To Pay or not to Pay?}
+Will a consumer choose to pay or not pay for energy, and even more poignant for companies, under which conditions will a consumer choose to pay?\\
+While this choice will be presented in a payoff matrix shortly, it must first be presented as a function of exogenous variables.\\
+We propose that at the most elemental level the decision to pay is nothing more than a cost benefit analysis which any consumer is able to make. In this case the cost of stealing must be less than the cost of paying. We assume at this level that a consumer is choosing between paying or not, there is no option of abstaining from consuming at all.\\
+Let the cost of paying be denoted $c_p$ and the cost of stealing be denoted $c_s$. It is straightforward to define $c_p$, it is simply the price of energy, which we measure in units of USD/kWh. Fortunately it is possible to obtain $c_p$ using data supplied by the world bank. We define $c_s$ as the average fine charged a theft of electricity, and to standardize the two variables, we find $c_p$ for a single billing cycle($bc$), and fit $c_s$ to be the average fine over a billing cycle. That is if a person is fined only once per year, and bills are sent monthly, $c_s = c_p/12$, whereas if a person is fined k times a year, $c_s = k*c_p/12$. Thus it is clear that both stealing, and paying result in a negative payoff, where users will choose the least costly option. If desired, we can translate this so that one payoff is negative and one is positive. \\
+Thus a single consumer has two options, to pay or not to pay. Each of these options result in different payoffs for the company. While the different strategies that a company can take will effect the both $c_s$ and $c_p$. 
+\subsection{Player Interactions}
+When it is more attractive to steal, than to pay, the game becomes a social dilemma. We observe the following: stealing reduces profits and leads to a rise in energy prices, and as more people steal, it is easier it is to detect non-technical losses. To summarize: it is cheaper to steal than to pay, those who pay are negatively impacted by those who steal, and those who steal are negatively impacted by those who steal. To model this social dilemma we would like to be able to capture the amount by which stealing influences the cost of paying, and also the factor by which an additional stealer influences the rate of detection. We introduce two new variables: $c$ is the extent to which frequency of detection increases when two people steal instead of one and $p_i$ is the amount by which the price of paying increases when one person steals.The proposed game is:\\ \\
+\bordermatrix{~ & S & P \cr
+                  S & c_s *(k+c)/bc & c_s\cr
+                  P & c_p+p_i & c_p \cr}\\
+In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i$ < $c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
+
+\subsection{Social Norms}
+The choice to steal is influenced by social norms as well as by financial costs and benefits. We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing, and of the trust which an individual has in the ability of the company to deliver the service which is being paid for. Thus to incorporate norms into the game we need to express these quantities. INSERT NEW PARAMETERS
+
+\subsection{Spatial Dynamics}
+The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. 
+INSERT OTHER CELLULAR AUTOMATA IDEAS 
+
+\subsection{Different Categories of Customers}
+What parameters that category needs. 
+
+\section{Parameter estimation}
+
+\subsection{Countries}
+The World Bank offers data on transmission and distribution losses by country. For that reason we have chosen to consider only countries with a single supplier of power, and which have data covered by the World Bank. Those countries are: INSERT MIRZA list of countries. Potential countries: Mexico, Indonesia, South Africa, Greece, Jamaica. 
+
+
+\subsection{The cost of stealing}
+SOURCES:  this is harder to get. 
+\subsubsection{Frequency of detection}
+SOURCES: 
+\subsection{The cost of energy}
+SOURCES: once we choose the countries we can get this directly. 
+\subsection{Effect of nontechnical losses on price of energy}
+SOURCES:
+\subsection{Effect of additional stealer on rate of detection}
+SOURCES:
+\subsection{Stealing Norm}
+SOURCES: Can we do a regression between NTL and world attitudes survey responses? Is there a relation? 
+\subsection{Trust Norm}
+SOURCES:  Global Corruption Report, 
+\subsection{Spatial Influence}  
+SOURCES:
+\section{Analyzing the Base Game}
+
+\subsection{Equilibria}
+
+\subsection{Can we morph this game from a social dilemma to laissez faire?}
+
+\subsection{The evolution of norms}
+Is there a critical point at which norms will be strong enough to deter stealing? If so how long will it take to reach that point? 
+
+\section{Interventions}
+With a firm grasp of the essential parameters we look at different interventions available to utility companies in terms of the parameters of interest. That is we propose that interventions will influence the cost of energy, the cost of stealing by either increasing the frequency or penalty associated with detection, the norms associated with stealing, or the trust that users have in the company. To find the most effective mix of strategies while facing cost constraints, utilities most determine the extent to which an intervention will change these parameters, and the cost of each parameter change. We investigate two possible interventions available to utilities: a community payment plan, changing the costs of electricity by offering additional services. 
+
+\subsection{Sharing the burden of stealing}
+
+\subsection{Additional services}
+
+\subsection{Advice for utilities}
+
+\section{Conclusions}
+
+\end{document}
