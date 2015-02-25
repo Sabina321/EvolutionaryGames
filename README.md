@@ -1,2 +1,2 @@
 ###Programs for creating and visualizing evolutionary games.
-####Contributors:Moritz Boehle, x2, x3, Arshad Mirza, Sabina Tomkinsks:
+####Contributors:Moritz Boehle, Sheah Deilami-Nugent, Philip Kaganovsky, Arshad Mirza, Sabina Tomkinsks:
