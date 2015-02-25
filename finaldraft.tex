@@ -40,7 +40,25 @@ When it is more attractive to steal, than to pay, the game becomes a social dile
 In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i$ < $c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
 
 \subsection{Social Norms}
-The choice to steal is influenced by social norms as well as by financial costs and benefits. We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing, and of the trust which an individual has in the ability of the company to deliver the service which is being paid for. Thus to incorporate norms into the game we need to express these quantities. INSERT NEW PARAMETERS
+The choice to steal is influenced by social norms as well as by financial costs and benefits. We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing (represented by variable $A$), and of the trust which an individual has in the ability of the company to deliver the service which is being paid for (represented by variable $T$). Thus to incorporate norms into the game we need to express these quantities. 
+
+We define a function that returns a constant $j$ as
+$ f(T,A) = j $ such that if 
+\begin{center}
+$
+\begin{cases}
+     j &> 0 $   \hspace{10pt} the perceived cost of stealing decreases$
+      \\
+     j &< 0 $    \hspace{10pt}the perceived cost of stealing increases$
+     \\
+     j &= 0 $  \hspace{10pt}  norms have no effect on the cost of stealing$
+\end{cases}
+$
+\end{center}
+
+Constant $j$ effects an individual's perceived cost of stealing. We say that $j$ is the evaluation of a function of trust and attitudes. Therefore in the norms model we update the cost of stealing to be the constant $j$ subtracted from the whole function of the cost of stealing. We can write this as $c_s=c_s-j$ or alternatively
+ $c_s=k*c_p/12 - j$.
+ 
 
 \subsection{Spatial Dynamics}
 The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. 
