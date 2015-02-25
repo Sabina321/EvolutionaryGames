@@ -2,6 +2,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{xkeyval}
 
 \title{FinalPaper}
 \author{ }
@@ -19,12 +22,17 @@ CAN BE PASTED FROM PRE-PROSPECTUS - LEFT OUT BC IT IS DISTRACTING
 POSSIBLY SAME AS INTRO
 
 \section{Why Game Theory?}
-Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time. 
+Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time. \\
+
+Evolutionary game theory model has the ability to predict the immediate reactions and the evolution of behavior among the population considered. Then we can simulate different approaches to solve the problem to make policy recommendations. Using cellular automata modeling we can also make recommendations about geographically which neighborhoods/areas of the population may be the most useful to target first. \todo{AM: adding a new paragraph} \\
+
+
+
 
 
 THIS IS CHOPPY IE NEEDS EDITING
 
-\section{Defining the Game}
+\section{Set-up of the Base Game}\todo{AM: changed, Originally was Defining the Model}
 At the heart of each game is the decision to pay or not to pay. Thus we begin the discussion of our game with a single two dimensional vector including the payoffs of the choices available to each consumer. Next we refine the game by capturing the inter-player dynamics. Next we explain the evolution of norms. We show that the payoffs of stealing are affected by the norms of the community. Furthermore we estimate how these norms change over time. Finally we introduce cellular automata, and show how strategies proliferate spatially. The following sections outline the game construction while parameter estimation is covered after this theoretical construction. \\ 
 \subsection{To Pay or not to Pay?}
 Will a consumer choose to pay or not pay for energy, and even more poignant for companies, under which conditions will a consumer choose to pay?\\
@@ -37,13 +45,17 @@ When it is more attractive to steal, than to pay, the game becomes a social dile
 \bordermatrix{~ & S & P \cr
                   S & c_s *(k+c)/bc & c_s\cr
                   P & c_p+p_i & c_p \cr}\\
-In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i$ < $c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
+In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i$ $<$ $c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
 
 \subsection{Social Norms}
 The choice to steal is influenced by social norms as well as by financial costs and benefits. We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing, and of the trust which an individual has in the ability of the company to deliver the service which is being paid for. Thus to incorporate norms into the game we need to express these quantities. INSERT NEW PARAMETERS
 
 \subsection{Spatial Dynamics}
-The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. 
+The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. \\
+
+Spread of ideas in a community are community based, we use 
+
+
 INSERT OTHER CELLULAR AUTOMATA IDEAS 
 
 \subsection{Different Categories of Customers}
@@ -83,7 +95,9 @@ SOURCES:
 \subsection{Can we morph this game from a social dilemma to laissez faire?}
 
 \subsection{The evolution of norms}
-Is there a critical point at which norms will be strong enough to deter stealing? If so how long will it take to reach that point? 
+Is there a critical point at which norms will be strong enough to deter stealing? If so how long will it take to reach that point? \\
+
+The goal of the policy is to reach the tipping point as fast as possible at the least cost (opportunity cost and incremental expenses) \todo{AM: adding a few lines here}
 
 \section{Interventions}
 With a firm grasp of the essential parameters we look at different interventions available to utility companies in terms of the parameters of interest. That is we propose that interventions will influence the cost of energy, the cost of stealing by either increasing the frequency or penalty associated with detection, the norms associated with stealing, or the trust that users have in the company. To find the most effective mix of strategies while facing cost constraints, utilities most determine the extent to which an intervention will change these parameters, and the cost of each parameter change. We investigate two possible interventions available to utilities: a community payment plan, changing the costs of electricity by offering additional services. 
@@ -96,4 +110,6 @@ With a firm grasp of the essential parameters we look at different interventions
 
 \section{Conclusions}
 
+
+\listoftodos
 \end{document}
