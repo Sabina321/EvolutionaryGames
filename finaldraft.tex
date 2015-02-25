@@ -1,7 +1,9 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{hyperref}
+\usepackage{hyperref} \usepackage{todonotes}
+
+\usepackage{xkeyval}
 
 \title{FinalPaper}
 \author{ }
@@ -21,7 +23,7 @@ POSSIBLY SAME AS INTRO
 \section{Why Game Theory?}
 Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time. 
 
-
+                          
 THIS IS CHOPPY IE NEEDS EDITING
 
 \section{Defining the Game}
@@ -34,7 +36,7 @@ Let the cost of paying be denoted $c_p$ and the cost of stealing be denoted $c_s
 Thus a single consumer has two options, to pay or not to pay. Each of these options result in different payoffs for the company. While the different strategies that a company can take will effect the both $c_s$ and $c_p$. 
 \subsection{Player Interactions}
 When it is more attractive to steal, than to pay, the game becomes a social dilemma. We observe the following: stealing reduces profits and leads to a rise in energy prices, and as more people steal, it is easier it is to detect non-technical losses. To summarize: it is cheaper to steal than to pay, those who pay are negatively impacted by those who steal, and those who steal are negatively impacted by those who steal. To model this social dilemma we would like to be able to capture the amount by which stealing influences the cost of paying, and also the factor by which an additional stealer influences the rate of detection. We introduce two new variables: $c$ is the extent to which frequency of detection increases when two people steal instead of one and $p_i$ is the amount by which the price of paying increases when one person steals.The proposed game is:\\ \\
-\bordermatrix{~ & S & P \cr
+\bordermatrix{~ & S & P \cr                                                                                                                                                              
                   S & c_s *(k+c)/bc & c_s\cr
                   P & c_p+p_i & c_p \cr}\\
 In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i$ < $c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
@@ -58,7 +60,11 @@ $
 
 Constant $j$ effects an individual's perceived cost of stealing. We say that $j$ is the evaluation of a function of trust and attitudes. Therefore in the norms model we update the cost of stealing to be the constant $j$ subtracted from the whole function of the cost of stealing. We can write this as $c_s=c_s-j$ or alternatively
  $c_s=k*c_p/12 - j$.
- 
+                                                                                                                                                                                                                                           \\
+
+Spread of ideas in a community are community based, we use 
+
+
 
 \subsection{Spatial Dynamics}
 The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. 
@@ -94,7 +100,9 @@ SOURCES: Can we do a regression between NTL and world attitudes survey responses
 SOURCES:  Global Corruption Report, 
 \subsection{Spatial Influence}  
 SOURCES:
-\section{Analyzing the Base Game}
+\section{Analyzing the Base Game}                                                                                                  \\
+
+The goal of the policy is to reach the tipping point as fast as possible at the least cost (opportunity cost and incremental expenses) \todo{AM: adding a few lines here}
 
 \subsection{Equilibria}
 
@@ -105,6 +113,8 @@ Is there a critical point at which norms will be strong enough to deter stealing
 
 \section{Interventions}
 With a firm grasp of the essential parameters we look at different interventions available to utility companies in terms of the parameters of interest. That is we propose that interventions will influence the cost of energy, the cost of stealing by either increasing the frequency or penalty associated with detection, the norms associated with stealing, or the trust that users have in the company. To find the most effective mix of strategies while facing cost constraints, utilities most determine the extent to which an intervention will change these parameters, and the cost of each parameter change. We investigate two possible interventions available to utilities: a community payment plan, changing the costs of electricity by offering additional services. 
+
+\listoftodos
 
 \subsection{Sharing the burden of stealing}
 
