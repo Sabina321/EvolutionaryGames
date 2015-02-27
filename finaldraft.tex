@@ -2,11 +2,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{hyperref} \usepackage{todonotes}
-
+\usepackage{caption}
 \usepackage{xkeyval}
 
-\title{FinalPaper}
-\author{ }
+\title{\textbf{Electricity Theft}}
+\author{Moritz B\"{o}hle, Sheah Deilami-Nugent, 
+\\Philip Kaganovsky, Arshad Mirza, Sabina Tomkins }
 \date{February 2015}
 
 \begin{document}
@@ -14,21 +15,21 @@
 \maketitle
 
 \section{Introduction}
-CAN BE PASTED FROM PRE-PROSPECTUS - LEFT OUT BC IT IS DISTRACTING
+Electricity theft is a problem worldwide but especially in countries without sufficient infrastructure to counteract it. It is estimated that 20-25\% of revenues are lost to theft. Theft is a problem which eventually hurts the entire community of utilities consumers; as revenues are depleted, companies face limited options, and are often forced to raise prices. Furthermore, without sustainable revenue, companies are unable to invest in innovative technologies, such as renewable energy generation, and smart metering, which may be critical not only to their own survival but to the wellbeing of the consumers they serve.
+
+	The most straightforward and common approach to mitigating what will hereafter be referred to as non-technical losses is to punish transgressors. However, when a significant portion of a population does not pay for energy, it is impractical to detect, fine, and collect from a non-paying connection. Utilities companies(UCs) are investigating alternative methods to shift non-paying consumers to paying customers, which upon review of literature seem to consist of internal/structural/managerial changes, changing the price structure, or involving the community in theft detection.
+
+	We propose to model a population of electricity consumers using an evolutionary game. This model allows us to incorporate the rational decisions of consumers in response to the environment and to predict changes in the population over time. Thus we first attempt to capture the real world dynamics of populations with shares of stealing consumers. Then we test different interventions by the utilities companies, predicting which ones will most effective at transforming stealing consumers into paying customers. 
+
+	In the next section we outline the game that we have designed incrementally, so that at each step we are better able to explain the real world dynamics, yet are not constrained to particular locations, i.e. we hope to introduce complexity without loss of generality. We then introduce our data sources. With the model built, and the data collected we test the game with different parameters and find equilibria. Next, we show which parameters certain interventions would update, and evaluate each intervention. Thus we conclude with two kinds of suggestions: given the effect of changing certain parameters, we advise on which categories of interventions would be most successful, and given the limitations of the model we advise on which kinds of data would be most useful for building a more informed game. 
+
+\section{Why Evolutionary Game Theory?}
+Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time and predict the immediate reactions and the evolution of behavior among the population considered. 
 
 
-\section{Background}
-POSSIBLY SAME AS INTRO
-
-\section{Why Game Theory?}
-Reducing electricity theft is a social conundrum. To do so, it is necessary to understand the human motivations behind stealing, the cultural and social factors which facilitate the process, and both the interactions between users and providers, and those between users in a community. A social model which quantifies the choices that people make offers the potential to both untangle and predict the evolution of how and why people choose to consume electricity. Those familiar with game theory see it as a natural choice, while evolutionary game theory is even more attractive for its ability to model the dynamics of this social system over time. 
-
-Evolutionary game theory model has the ability to predict the immediate reactions and the evolution of behavior among the population considered. Then we can simulate different approaches to solve the problem to make policy recommendations. Using cellular automata modeling we can also make recommendations about geographically which neighborhoods/areas of the population may be the most useful to target first
-                          
-THIS IS CHOPPY IE NEEDS EDITING
-
-\section{Defining the Game}
+\section{Set-up of the Base Game}
 At the heart of each game is the decision to pay or not to pay. Thus we begin the discussion of our game with a single two dimensional vector including the payoffs of the choices available to each consumer. Next we refine the game by capturing the inter-player dynamics. Next we explain the evolution of norms. We show that the payoffs of stealing are affected by the norms of the community. Furthermore we estimate how these norms change over time. Finally we introduce cellular automata, and show how strategies proliferate spatially. The following sections outline the game construction while parameter estimation is covered after this theoretical construction. \\ 
+
 \subsection{To Pay or not to Pay?}
 Will a consumer choose to pay or not pay for energy, and even more poignant for companies, under which conditions will a consumer choose to pay?
 
@@ -38,19 +39,25 @@ We propose that at the most elemental level the decision to pay is nothing more 
 
 Let the cost of paying be denoted $c_p$ and the cost of stealing be denoted $c_s$. It is straightforward to define $c_p$, it is simply the price of energy, which we measure in units of USD/kWh. Fortunately it is possible to obtain $c_p$ using data supplied by the world bank. We define $c_s$ as the average fine charged a theft of electricity, and to standardize the two variables, we find $c_p$ for a single billing cycle($bc$), and fit $c_s$ to be the average fine over a billing cycle. That is if a person is fined only once per year, and bills are sent monthly, $c_s = c_p/12$, whereas if a person is fined k times a year, $c_s = k*c_p/12$. Thus it is clear that both stealing, and paying result in a negative payoff, where users will choose the least costly option. If desired, we can translate this so that one payoff is negative and one is positive. \\
 
+
 \subsection{Bribery}
 In some situations the fine one is charged upon being caught stealing is so high, and the frequency of detection so low, that a more appropriate factor in the cost of stealing may be the cost of bribing an official. Thus if we can collect or estimate the data $c_s$ may be updated to be a function of the average amount given as a bribe to a bill collector. 
 
-Thus a single consumer has two options, to pay or not to pay. Each of these options result in different payoffs for the company. While the different strategies that a company can take will effect the both $c_s$ and $c_p$. 
+Thus a single consumer has two options, to pay or not to pay. Each of these options result in different payoffs for the company. While the different strategies that a company can take will affect the both $c_s$ and $c_p$. 
 \subsection{Player Interactions}
 When it is more attractive to steal, than to pay, the game becomes a social dilemma. We observe the following: stealing reduces profits and leads to a rise in energy prices, and as more people steal, it is easier it is to detect non-technical losses. To summarize: it is cheaper to steal than to pay, those who pay are negatively impacted by those who steal, and those who steal are negatively impacted by those who steal. To model this social dilemma we would like to be able to capture the amount by which stealing influences the cost of paying, and also the factor by which an additional stealer influences the rate of detection. We introduce two new variables: $c$ is the extent to which frequency of detection increases when two people steal instead of one and $p_i$ is the amount by which the price of paying increases when one person steals. The proposed game is:\\ \\
 \bordermatrix{~ & S & P \cr                                                                                                                                                              
                   S & c_s *(k+c)/bc & c_s\cr
                   P & c_p+p_i & c_p \cr}\\
+                  \\
+                  \\
 In order for this to be a social dilemma and to summarize the effects we are interested int we add the restrictions that $c$ and be positive and  $p_i$ be negative so that $c_p + p_i < c_p$. Thus putting in some values for all the parameters of interest we check that this is indeed a social dilemma. 
 
+
 \subsection{Social Norms}
-The choice to steal is influenced by social norms as well as by financial costs and benefits. We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing (represented by variable $A$), and of the trust which an individual has in the ability of the company to deliver the service which is being paid for (represented by variable $T$). Thus to incorporate norms into the game we need to express these quantities. 
+Two results consistent across the literature are that the decision to pay or not to pay is modulated by the extent to which paying can be normalized and the amount of trust that customers have in the utilities company. Thus, we propose that there is a clear need to represent these various interventions in terms of their relative ability to collect payments from consumers while incorporating their extent to influence the amount of trust a community has in a company, and the extent to which a community deems stealing as acceptable.
+
+ We propose that the choice to steal or pay is a function of the extent to which a community approves of stealing (represented by variable $A$), and of the trust which an individual has in the ability of the company to deliver the service which is being paid for (represented by variable $T$). Thus to incorporate norms into the game we need to express these quantities. 
 
 We define a function that returns a constant $j$ as
 $ f(T,A) = j $ such that if 
@@ -68,7 +75,8 @@ $
 
 Constant $j$ effects an individual's perceived cost of stealing. We say that $j$ is the evaluation of a function of trust and attitudes. Therefore in the norms model we update the cost of stealing to be the constant $j$ subtracted from the whole function of the cost of stealing. We can write this as $c_s=c_s-j$ or alternatively
  $c_s=k*c_p/12 - j$.
-                                                                                                                                                                                                                                           \\
+ 
+In the short-run $j$ is constant. On a larger time-scale, however, norms may change. Given time, we would like to see how $j$ changes in the long-run. 
 
 \subsection{Spatial Dynamics}
 The final level of complexity which we incorporate is the spatial effect of the community. For example we expect that norms will spread throughout the community. Thus we investigate the spatial spread of norms using cellular automata. 
@@ -83,61 +91,199 @@ Given time: we would like to try all variations of the game on different categor
 
 \subsection{Countries}
 The World Bank offers data on transmission and distribution losses by country. For that reason we have chosen to consider only countries with a single supplier of power, and which have data covered by the World Bank.  The five countries we are interested in are: Mexico, Indonesia, South Africa, Greece, Jamaica. 
-
+\href{http://data.worldbank.org/indicator/EG.ELC.LOSS.ZS}{World Bank data}
 
 \subsection{The cost of stealing}
-SOURCES:  this is harder to get. 
-\subsubsection{Frequency of detection}
-SOURCES: 
-\subsection{The cost of energy}
-The Energy Information Administration provides prices per kilowatt hour from 2001 to 2009 \href{http://www.eia.gov/countries/prices/electricity_households.cfm}{ link to EIA data}. For the five countries listed above we have the following statistics: 
+In this model the opportunity cost of stealing is the possibility of getting caught and being fined by the utility company. From our survey it seems that the fines and probability of being caught are both very variable from place to place and over time. \\
 
-\begin{tabular}{ l c r }
-  1 & 2 & 3 \\
-  4 & 5 & 6 \\
-  7 & 8 & 9 \\
-\end{tabular}
+In Mexico the fine for stealing is 670,000 up to 3,300,000 pesos (Garza 2014), which is very high.\\
 
-Thus Mexico and Indonesia are the most promising candidates for further explanation. We continue to consider Jamaica as it is possible to obtain information using the Steadman thesis. INSERT SHEAH. 
- 
-\subsection{Effect of nontechnical losses on price of energy}
-This may be the most parameter to obtain, and unfortunately one of the most important for our analysis. 
-SOURCES: INSERT MORITZ
-\subsection{Effect of additional stealer on rate of detection}
-SOURCES: 
-\subsection{Norms: Stealing and Trust}
-
-Typically, social norms are broken up into two difference categories: 
-\textit{descriptive norms} and \textit{injunctive norms}. \textit{Descriptive norms} are defined by what is most common or "normal". \textit{Injuctive norms} are based on beliefs of what an individual ought to do, or is morally right. Our variables $T$ and $A$ are functions of both of these norms.
+In Indonesia the fines of stealing are not based on a pre-decided format, but based on a hearing with a judge.  According to the 2002 Electricity Law, power theft carries a maximum penalty of five years in prison and a maximum fine of Rp 500 million. In 2005, the goal of the utility was to collect 28.1 billion (2005) Rp for the loss of estimated 55.2 million kWh lost to theft, which gives us the measure of USD 0.06 (2005) per kWh, the market cost of electricity in that year. Thus we can deduce that in Indonesia, fines are set to recuperate the cost of lost electricity by fining the ones caught stealing. This is the way we have modeled cost of stealing. (The Jarkarta Post (2005)) \\
+%SOURCES: The Jakarta Post $(2005)$
 \\
 
-SOURCES:  Global Corruption Report, Focus theory of Normative Conduct, Beliefs about Lying and Spreading of Dishonesty (dice experiments), Theft as Customary Play (folklore paper), Theft but not Crime (piracy paper), Managing social norms (petrified forest paper)
+\subsubsection{Frequency of detection}
+From the newspaper reports, our understanding about fines in Indonesia is that the utility company inspects only 0.5 $\%$ of the subscribers. It is likely that these inspections are specific to places that are rampant in electricity theft, so conservative measure of probability of being caught is higher than that. (The Jakarta Post (2005))\\
+
+%SOURCES: The Jakarta Post (2005)
+\subsection{The cost of energy}
+The Energy Information Administration provides prices per kilowatt hour from 2001 to 2009 \href{http://www.eia.gov/countries/prices/electricity_households.cfm}{ link to EIA data}. For the five countries listed above we have the following statistics: 
+\begin{center}
+\captionof{table}{Electricity Prices for Households \\ 
+(U.S. Dollars per Kilowatt-hour)}
+\begin{tabular}{c|c|c|c|c|c}\centering
+Year & Mexico & Indonesia & South Africa & Greece & Jamaica\\
+\hline
+2001 & 0.075	& 0.025 & 0.036  &  0.070 & NA \\
+\hline
+2002 & 0.092	& 0.042 & 0.032 &  0.077 & NA \\
+\hline
+2003 & 0.091	& 0.061 & 0.048 & 0.096 & NA \\
+\hline
+2004 & 0.090	& 0.062 & 0.060 & 0.107 & NA \\
+\hline
+2005 & 0.097	& 0.058 & 0.061 &  0.112 & NA \\
+\hline
+2006 & 0.101	& 0.062 & 0.059 & NA  & NA \\
+\hline
+2007 & 0.093	& 0.063 &  NA &  NA & NA \\
+\hline
+2008 & 0.096	& 0.061 & NA &  NA & NA \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\captionof{table}{Electricity Prices for Households 
+(U.S. Dollars per Kilowatt-hour)}
+\begin{tabular}[h]{c|c|c}\centering
+Year & Mexico & Indonesia \\ 
+\hline
+2001 & 0.075	& 0.025\\
+\hline
+2002 & 0.092	& 0.042\\
+\hline
+2003 & 0.091	& 0.061\\
+\hline
+2004 & 0.09		& 0.062\\
+\hline
+2005 & 0.097	& 0.058\\
+\hline
+2006 & 0.101	& 0.062\\
+\hline
+2007 & 0.093	& 0.063\\
+\hline
+2008 & 0.096	& 0.061\\
+\hline 
+\end{tabular} 
+\end{center}
+
+Thus Mexico and Indonesia are the most promising candidates for further explanation. We continue to consider Jamaica as it is possible to obtain information using the Steadman thesis. In her paper "Essays on Electricity Theft" Steadman ran a regression analysis of 97 different countries using world bank data. In particular, she took the World Bank Institute's Governance indicators (corruption, rule of law, regulatory quality, government effectiveness, political stability, voice and accountability) and ran multiple regressions examining their relationship between the homicide rate, theft rate and robbery rate of 97 countries. 
+\begin{center}
+
+\captionof{table}{Steadman Panel Data Regression of Distribution \\ Loss on Various Governance Indicators \\ N= 485} \centering
+\begin{tabular}[h]{c|c|c|c|c|c|c}\centering
+  & Corruption & Rule of Law & RQ & GE & PS & VA \\
+\hline
+coefficient & -2.130 & 02.07 & -1.921 & -1.867(0.484) & -.869* & -1.831 \\
+(SE) & (.457) & (.609) &0.755) & & (.482) & (.529)
+\end{tabular}
+
+\end{center}
+
+We could use further guidance on how to best analyze this data.
+
+\subsection{Effect of additional stealer on rate of detection}
+
+We expect that the effect of an additional stealer on rate of detection should be different at different proportions of stealers. While initially it would not change very much, until a point that the utility company losses mound to the threshold that they have an incentive to act. After that any additional thief will increase the chances of getting caught until there is a point that the utility company employee are overwhelmed and feel powerless (even if not motivated to be ask for bribes) and the chances of being caught declines. 
+
+We will plot it as a function that takes the form of Figure 1 above.
+\begin{figure}
+\captionof{figure}{The plot of this function}
+\includegraphics[scale=0.5]{pic2}   % figure in the Project folder of dropbox a copy is here
+\end{figure}
+
+\subsection{Norms: Stealing and Trust}
+
+Typically, social norms are broken up into two different categories: 
+\textit{descriptive norms} and \textit{injunctive norms}. \textit{Descriptive norms} are defined by what is most common or "normal". \textit{Injunctive norms} are based on beliefs of what an individual ought to do, or is morally right. Our variables $T$ and $A$ are functions of both of these norms.
+\\
+We plan to quantify our norm variables by using several studies published examining norms and their interactions with stealing, dishonesty and corruption. 
+
+We have data from a survey (Kulas, McInnerney, Demuth \& Jadwinski (2015)). Items 1-4 are related to the survey questions prefaced by "Please mark how much you agree or disagree with the following statements": 
+\begin{enumerate}
+\item All in all, I am satisfied with my present job
+\item I would recommend this job to a friend.
+\item I am satisfied with my company
+\item I could easily take money, merchandise, or property from my employer any time I want.
+\end{enumerate}
+\begin{center}
+\captionof{table}{Fully Mediated Theft Model: Factor Variance (in parentheses)\\ and Covariance}
+\begin{tabular}[h]{l|c|c|c|c}
+Item & 1 & 2 & 3 & 4\\
+\hline
+1. Satisfaction & (.67) & & & \\
+\hline
+2. Climate for theft & .27 & (1.29) & & \\
+\hline
+3. Theft & .05 & .25 & (.11)& \\
+\hline
+5. Time theft & .09 & .44 & .09 & (.45) \\
+
+\end{tabular}
+
+\end{center}
+
+It is clear that there is a positive correlation between a climate for theft and actual theft. We may need guidance on how to best analyze this data further, but the positive relationship alone confirms our assumption that social norms can affect the rate of electricity theft. 
+
+There is also data that suggests that perceived prevalence of dishonesty is positively correlated with an individual's decision to be dishonest (Rauhut (2013)). This suggests a relationship between descriptive norms and social behavior. This relationship is further supported by the findings of Cialdini in his study on normative conduct (Cialdini (1990)).
+%SOURCES:  Global Corruption Report, Focus theory of Normative Conduct, Beliefs about Lying and Spreading of Dishonesty (dice experiments), Theft as Customary Play (folklore paper), Theft but not Crime (piracy paper), Managing social norms (petrified forest paper)
 %\subsection{Stealing Norm} SOURCES: Can we do a regression between NTL and world attitudes survey responses? Is there a relation? 
 %\subsection{Trust Norm} SOURCES:  Global Corruption Report
 
 \subsection{Spatial Influence}  
-SOURCES:
+We would like to see how norms spread given different neighborhood structures. However we are aware that this may not be possible given time constraints. 
 \section{Analyzing the Base Game}                                                                                                  
-The goal of the policy is to reach the tipping point as fast as possible at the least cost (opportunity cost and incremental expenses) \todo{AM: adding a few lines here}
-
+The goal of the policy is to reach the tipping point as fast as possible at the least cost (opportunity cost and incremental expenses)
 \subsection{Equilibria}
-
+Coming soon!
 \subsection{Can we morph this game from a social dilemma to laissez faire?}
+Can we? Under which conditions?
 
 \subsection{The evolution of norms}
 Is there a critical point at which norms will be strong enough to deter stealing? If so how long will it take to reach that point? 
 
 \section{Interventions}
-With a firm grasp of the essential parameters we look at different interventions available to utility companies in terms of the parameters of interest. That is we propose that interventions will influence the cost of energy, the cost of stealing by either increasing the frequency or penalty associated with detection, the norms associated with stealing, or the trust that users have in the company. To find the most effective mix of strategies while facing cost constraints, utilities most determine the extent to which an intervention will change these parameters, and the cost of each parameter change. We investigate two possible interventions available to utilities: a community payment plan, changing the costs of electricity by offering additional services. 
+With a firm grasp of the essential parameters we look at different interventions available to utility companies in terms of the parameters of interest. That is we propose that interventions will influence the cost of energy, the cost of stealing by either increasing the frequency or penalty associated with detection, the norms associated with stealing, or the trust that users have in the company. The goal of the policy is to reach the proportion of payers that tip the norms as fast as possible at the least cost (opportunity cost and incremental expenses). To find the most effective mix of strategies while facing cost constraints, utilities must determine the extent to which an intervention will change these parameters, and the cost of each parameter change. We investigate two possible interventions available to utilities: a community payment plan, changing the costs of electricity by offering additional services. 
 
 \listoftodos
 
 \subsection{Sharing the burden of stealing}
+One strategy that we are interested in exploring is on the lines of the collective risk sharing that was introduced by the Nobel Prize winning founder Abdul Latif Jameel of Grameen Bank. \\
+
+The idea is to make the accountability of small neighborhoods by a group. By selecting a self help group of community leaders who the utility will negotiate with. This group of most influential mix of people will make sure that the norms set by utility company are followed, targets will be set in stakeholder meetings and discussions. A deposit could be required from the community while entering the contract, and while normal charged will still be according to usage, in case the targets are not met, the fines will be imposed and paid by the community as a whole from the deposit. \\
+
+There will be incentive for the stealers to steal in this case, but then they will be exposed to the community and there will be a discussion. There will be an incentive for the non-stealers to leave the group. If there are enough of these new people a new SHG will be formed which will be made of payers, and can be treated specially.\\
+
+This may affect the social norms in a much more accelerated manner.\\ 
 
 \subsection{Additional services}
 
 \subsection{Advice for utilities}
 
 \section{Conclusions}
+\section{Bibliography}
+
+A focus theory of normative conduct: Recycling the concept of norms to reduce littering in public places.
+Cialdini, Robert B.; Reno, Raymond R.; Kallgren, Carl A.
+Journal of Personality and Social Psychology, Vol 58(6), Jun 1990, 1015-1026\\
+
+P. Antmann, “Reducing technical and non-technical losses in the power sector,” World Bank, Tech. Rep., July 2009\\
+
+O. Fjeldstad, “What’s trust got to do with it ? Non-payment of service charges in local authorities in South Africa”, Journal of Modern African Studies, 2004.\\
+
+Gulati M, Rao MY. “Corruption in the electricity sector. A pervasive scourge.” The many faces of corruption. Tracking vulnerabilities at the sector level. Washington, DC: The World Bank; 2007.\\
+
+TB Smith, “Electricity theft: a comparative analysis”. Energy Policy 2004\\
+
+D.D. Tewari, T. Shah,“An assessment of South African prepaid electricity experiment, lessons learned, and their policy implications for developing countries”, Energy Policy, July 2003.\\
+
+Employee Satisfaction and Theft: Testing Climate Perceptions as a Mediator
+John T. Kulas , Joanne E. McInnerney , Rachel Frautschy DeMuth , Victoria Jadwinski 
+The Journal of Psychology 
+Vol. 141, Iss. 4, 2007
+
+Garza, Juan Ramón 2014. “Multas millionarias por robo de luz” Zocalo Saltillo Aug 25. http://www.zocalo.com.mx/seccion/articulo/multas-millonarias-por-robo-de-luz-1408949170\\
+
+Rauhut H (2013) Beliefs about Lying and Spreading of Dishonesty: Undetected Lies and Their Constructive and Destructive Social Dynamics in Dice
+Experiments. PLoS ONE 8(11): e77878. doi:10.1371/journal.pone.0077878\\
+
+Steadman, Keva Ullanda (2003) "Essays on Electricity Theft"  UMI Dissertation Publishing\\
+
+T. Winther, “Electricity theft as a relational issue: A comparative look at Zanzibar, Tanzania, and the Sunderban Islands, India”, Energy for Sustainable Development, 2012.
+World Bank, World Development Indicators (2015). Electric power transmission and distribution losses (\% of output). Retrieved from http://data.worldbank.org/indicator/EG.ELC.LOSS.ZS\\
+
+N.D. 2005.  “PLN gives rewards to informers over electricity theft” The Jakarta Post, Sep 30. http://www.thejakartapost.com/news/2005/09/30/pln-gives-rewards-informers-over-electricity-theft.html
+
 
 \end{document}
