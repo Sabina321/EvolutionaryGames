@@ -1,6 +1,35 @@
 import numpy as np
 from sympy import *
 
+def set_game(values):
+    if(len(set([len(i) for i in values]))>1):
+        return "matrix should be square"
+    else:
+        return values
+
+#uses functions here
+def set_game_custom(funct,x):
+    #check that the input matches the equations
+    var('w_aa,w_ab,w_ba,w_bb')
+    for v in x:
+        var('{}'.format(v))
+    #make a loop  
+    w_aa=funct[0][0]
+    w_ab=funct[0][1]
+    w_ba=funct[1][0]
+    w_bb=funct[1][1]
+    return[[w_aa,w_ab],[w_ba,w_bb]]
+    #return [[Eq(w_aa,funct[0][0]),Eq(w_ab,funct[0][1])],[Eq(w_ba,funct[1][0]),Eq(w_bb,funct[1][1])]]
+
+#don't like this very much
+def set_param_values(game,param,value):
+    var('{}'.format(param))
+    for row in range(len(game)):
+        for entry in range(len(game[row])):
+            #var(param)
+            game[row][entry]=game[row][entry].subs(param,value)
+    return game
+
 def strategy_fitness_at_x(w,i,x):
     row = w[i]
     return np.dot(row,x)
@@ -57,6 +86,6 @@ def get_interior_equilibrium_3_by_3(w):
 def get_interior_equilibrium_two_by_two(w):
     delta_w12=get_delta_line_two(w,0,1)
     si,sj=symbols('si,sj')
-    return solve(delta_w12[0]*si+delta_w12[1]*sj+delta_w12[2])
+    return solve(delta_w12[0]*si+delta_w12[1]*sj+delta_w12[2],si,sj)
 
 
