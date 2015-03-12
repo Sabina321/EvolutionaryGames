@@ -1,13 +1,82 @@
 import numpy as np
 from sympy import *
+import math
 
 def set_game(values):
     if(len(set([len(i) for i in values]))>1):
         return "matrix should be square"
     else:
         return values
+def norms(A):
+    return A
 
-#uses functions here
+def w(share_stealers):
+    return math.pow(10*share_stealers,2)
+
+def get_mean_over_time(time_range,share_stealers,A,k,update_A_at_t,p_detection,fine,p_pay_fine,bribe,price,penalty,service,use):
+    matrix_of_interest = np.zeros((time_range,3))
+    shares = [share_stealers,1-share_stealers]
+
+    matrix_of_interest[0][0]=share_stealers
+    cs=get_cost_stealing(A,k,p_detection,fine,p_pay_fine,bribe,share_stealers)
+    cp=get_value_paying(price,penalty,share_stealers,service,use)
+    w_bar = cs*(share_stealers)+cp*(1-share_stealers)
+    
+    #matrix_of_interest[0][1]=0
+    w=[cs,cp]
+    matrix_of_interest[0][1]=w_bar
+    matrix_of_interest[0][2]=cp
+    new_A=A
+    for t in range(1,time_range):
+        
+        s_new_stealer = replicator(shares,w,0)
+        ##before we calculate new fitnesses 
+        if(t%update_A_at_t==0):
+            new_A =1- s_new_stealer
+         ##norms doesn't actually change get new A then call norms on A
+         
+
+        ##recalculate the fitnesses 
+        
+        cs=get_cost_stealing(new_A,k,p_detection,fine,p_pay_fine,bribe,s_new_stealer)
+        cp=get_value_paying(price,penalty,s_new_stealer,service,use)
+        w=[cs,cp]
+
+        shares=[s_new_stealer,1-s_new_stealer]
+        w_bar = w[0]*(s_new_stealer)+w[1]*(1-s_new_stealer)
+        matrix_of_interest[t][0]=s_new_stealer
+        matrix_of_interest[t][1]=w_bar
+        matrix_of_interest[t][2]=cp
+    return matrix_of_interest
+
+#check 
+def get_penalty_stealing(p_detection,fine,p_pay_fine,bribe):
+    return p_detection*(fine*p_pay_fine+((1-p_pay_fine)*bribe))
+
+def get_cost_paying(price,penalty,share_stealers):
+    if(share_stealers==1):
+        share_stealers=1-math.pow(10,-12)
+    return (price*(1+ (float(1.0*penalty*share_stealers))/(1-share_stealers)))     
+
+def get_value_paying(price,penalty,share_stealers,service,use):
+    #value is benefits minus costs
+    #the benefit is captured with the service term 
+    return 1.0/(use*(get_cost_paying(price,penalty,share_stealers)))
+
+def get_cost_stealing(A,k,p_detection,fine,p_pay_fine,bribe,share_stealer):
+    p_detection=p_detection*w(share_stealer)
+    return 1.0/(f_a(A,k)+get_penalty_stealing(p_detection,fine,p_pay_fine,bribe))
+
+    
+
+def penalty(params):
+    return 1
+
+
+def f_a(A,k):
+    return k*math.pow(A,2)
+
+
 def set_game_custom(funct,x):
     #check that the input matches the equations
     var('w_aa,w_ab,w_ba,w_bb')
@@ -42,8 +111,16 @@ def average_fitness_at_x(w,x):
         w_bar = w_bar+np.dot(x[i],strategy_fitness_at_x(w,i,x))
     return w_bar
 
+#shares
+#strategies
+def replicator(s,w,i):
+    fitness_i = w[i]
+    mean_fitness = np.dot(s,w)
+    new_share = s[i]*np.divide(fitness_i,mean_fitness)
+    return new_share
+
 def discrete_replicator(s,w,i):
-    return s[i] * (strategy_fitness_at_x(w,i,s)/average_fitness_at_x(w,s))
+    return np.dot(s[i],(strategy_fitness_at_x(w,i,s)/average_fitness_at_x(w,s)))[0]
 
 def get_delta_line_two(w,i,j):
     si,sj=symbols('si,sj')
